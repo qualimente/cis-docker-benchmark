@@ -480,7 +480,7 @@ control 'cis-docker-benchmark-3.19' do
   desc '\'/etc/default/docker\' file contains sensitive parameters that may alter the behavior of docker daemon. Hence, it should be owned and group-owned by \'root\' to maintain the integrity of the file.'
   ref 'https://docs.docker.com/engine/admin/configuring/'
 
-  only_if { os[:family] != 'centos' }
+  only_if { file('/etc/default/docker').exist? }
   describe file('/etc/default/docker') do
     it { should exist }
     it { should be_file }
@@ -495,7 +495,7 @@ control 'cis-docker-benchmark-3.20' do
   desc 'Verify that the \'/etc/default/docker\' file permissions are correctly set to \'644\' or more restrictive.'
   ref 'https://docs.docker.com/engine/admin/configuring/'
 
-  only_if { os[:family] != 'centos' }
+  only_if { file('/etc/default/docker').exist? }
   describe file('/etc/default/docker') do
     it { should exist }
     it { should be_file }
